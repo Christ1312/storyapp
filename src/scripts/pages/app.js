@@ -117,6 +117,9 @@ export default class App {
  
     // Get page instance
     const page = route();
+    if(!page){
+    location.reload();
+    }
  
     const transition = transitionHelper({
       updateDOM: async () => {
