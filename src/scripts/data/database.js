@@ -31,7 +31,7 @@ const Database = {
     return (await dbPromise).getAll(OBJECT_STORE_NAME);
   },
 
-  async removeReport(id) {
+  async removeStory(id) {
     return (await dbPromise).delete(OBJECT_STORE_NAME, id);
   },
 };

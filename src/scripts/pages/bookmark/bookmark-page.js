@@ -42,30 +42,30 @@ export default class BookmarkPage {
     await this.#presenter.initialGalleryAndMap();
   }
  
-  populateBookmarkedStories(message, stories) {
+  populateBookmarkedStories(stories) {
     if (stories.length <= 0) {
       this.populateBookmarkedStoriesListEmpty();
       return;
     }
- 
-    const html = stories.reduce((accumulator, report) => {
 
+
+    const html = stories.reduce((accumulator, story) => {
       if (this.#map) {
-        const coordinate = [report.location.latitude, report.location.longitude];
-        const markerOptions = { alt: report.title };
-        const popupOptions = { content: report.title };
+        const coordinate = [story.lat, story.lon];
+        const markerOptions = { alt: story.name };
+        const popupOptions = { content: story.name };
         this.#map.addMarker(coordinate, markerOptions, popupOptions);
       }
 
+
       return accumulator.concat(
         generateStoryItemTemplate({
-          ...report,
-          placeNameLocation: report.location.placeName,
-          reporterName: report.reporter.name,
+          ...story,
         }),
       );
     }, '');
- 
+
+
     document.getElementById('stories-list').innerHTML = `
       <div class="stories-list">${html}</div>
     `;

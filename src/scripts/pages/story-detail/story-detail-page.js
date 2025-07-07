@@ -29,26 +29,6 @@ export default class StoryDetailPage {
           <div id="Story-detail-loading-container"></div>
         </div>
       </section>
-      
-      <section class="container">
-        <hr>
-        <div class="Story-detail__comments__container">
-          <div class="Story-detail__comments-form__container">
-            <h2 class="Story-detail__comments-form__title">Beri Tanggapan</h2>
-            <form id="comments-list-form" class="Story-detail__comments-form__form">
-              <textarea name="body" placeholder="Beri tanggapan terkait laporan."></textarea>
-              <div id="submit-button-container">
-                <button class="btn" type="submit">Tanggapi</button>
-              </div>
-            </form>
-          </div>
-          <hr>
-          <div class="Story-detail__comments-list__container">
-            <div id="Story-detail-comments-list"></div>
-            <div id="comments-list-loading-container"></div>
-          </div>
-        </div>
-      </section>
     `;
   }
 
@@ -59,22 +39,17 @@ export default class StoryDetailPage {
       dbModel: Database,
     });
 
-    this.#setupForm();
 
     this.#presenter.showStoryDetail();
-    this.#presenter.getCommentsList();
   }
 
-  async populateStoryDetailAndInitialMap(message, story) {
+  async populateStoryDetailAndInitialMap(story) {
     document.getElementById('Story-detail').innerHTML = generateStoryDetailTemplate({
-      title: story.title,
+      name: story.name,
       description: story.description,
-      damageLevel: story.damageLevel,
-      evidenceImages: story.evidenceImages,
-      location: story.location,
-      latitudeLocation: story.location.latitude,
-      longitudeLocation: story.location.longitude,
-      storyerName: story.storyer.name,
+      photoUrl: story.photoUrl,
+      latitudeLocation: story.lat,
+      longitudeLocation: story.lon,
       createdAt: story.createdAt,
     });
 
@@ -82,45 +57,21 @@ export default class StoryDetailPage {
     createCarousel(document.getElementById('images'));
 
     // Map
-    await this.#presenter.showStoryDetailMap();
-    if (this.#map) {
-      const storyCoordinate = [story.location.latitude, story.location.longitude];
-      const markerOptions = { alt: story.title };
-      const popupOptions = { content: story.title };
-      this.#map.changeCamera(storyCoordinate);
-      this.#map.addMarker(storyCoordinate, markerOptions, popupOptions);
-    }
+  await this.#presenter.showStoryDetailMap();
+  if (this.#map) {
+    const storyCoordinate = [story.lat, story.lon];
+    const markerOptions = { alt: story.title };
+    const popupOptions = { content: story.name };
+    this.#map.changeCamera(storyCoordinate);
+    this.#map.addMarker(storyCoordinate, markerOptions, popupOptions);
+  }
 
     // Actions buttons
     this.#presenter.showSaveButton();
-    this.addNotifyMeEventListener();
   }
 
   populateStoryDetailError(message) {
     document.getElementById('Story-detail').innerHTML = generateStoryDetailErrorTemplate(message);
-  }
-
-  populateStoryDetailComments(message, comments) {
-    if (comments.length <= 0) {
-      this.populateCommentsListEmpty();
-      return;
-    }
-
-    const html = comments.reduce(
-      (accumulator, comment) =>
-        accumulator.concat(
-          generateStoryCommentItemTemplate({
-            photoUrlCommenter: comment.commenter.photoUrl,
-            nameCommenter: comment.commenter.name,
-            body: comment.body,
-          }),
-        ),
-      '',
-    );
-
-    document.getElementById('Story-detail-comments-list').innerHTML = `
-      <div class="Story-detail__comments-list">${html}</div>
-    `;
   }
 
   populateCommentsListEmpty() {
@@ -139,32 +90,9 @@ export default class StoryDetailPage {
     });
   }
 
-  #setupForm() {
-    this.#form = document.getElementById('comments-list-form');
-    this.#form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      const data = {
-        body: this.#form.elements.namedItem('body').value,
-      };
-      await this.#presenter.postNewComment(data);
-    });
-  }
-
-  postNewCommentSuccessfully(message) {
-    console.log(message);
-
-    this.#presenter.getCommentsList();
-    this.clearForm();
-  }
-
-  postNewCommentFailed(message) {
-    alert(message);
-  }
-
-  clearForm() {
-    this.#form.reset();
-  }
+  // clearForm() {
+  //   this.#form.reset();
+  // }
 
   renderSaveButton() {
     document.getElementById('save-actions-container').innerHTML =
@@ -188,7 +116,7 @@ export default class StoryDetailPage {
       generateRemoveStoryButtonTemplate();
 
     document.getElementById('Story-detail-remove').addEventListener('click', async () => {
-      await this.#presenter.removeReport();
+      await this.#presenter.removeStory();
       await this.#presenter.showSaveButton();
     });
   }
@@ -200,12 +128,6 @@ export default class StoryDetailPage {
   removeFromBookmarkFailed(message) {
     alert(message);
   }  
-
-  addNotifyMeEventListener() {
-    document.getElementById('Story-detail-notify-me').addEventListener('click', () => {
-      this.#presenter.notifyMe();
-    });
-  }
 
   showStoryDetailLoading() {
     document.getElementById('Story-detail-loading-container').innerHTML =
@@ -222,28 +144,5 @@ export default class StoryDetailPage {
 
   hideMapLoading() {
     document.getElementById('map-loading-container').innerHTML = '';
-  }
-
-  showCommentsLoading() {
-    document.getElementById('comments-list-loading-container').innerHTML =
-      generateLoaderAbsoluteTemplate();
-  }
-
-  hideCommentsLoading() {
-    document.getElementById('comments-list-loading-container').innerHTML = '';
-  }
-
-  showSubmitLoadingButton() {
-    document.getElementById('submit-button-container').innerHTML = `
-      <button class="btn" type="submit" disabled>
-        <i class="fas fa-spinner loader-button"></i> Tanggapi
-      </button>
-    `;
-  }
-
-  hideSubmitLoadingButton() {
-    document.getElementById('submit-button-container').innerHTML = `
-      <button class="btn" type="submit">Tanggapi</button>
-    `;
   }
 }

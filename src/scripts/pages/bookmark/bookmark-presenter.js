@@ -25,10 +25,7 @@ export default class BookmarkPresenter {
  
     try {
       const listOfStories = await this.#model.getAllStories();
-      const stories = await Promise.all(listOfStories.map(storyMapper));
- 
-      const message = 'Berhasil mendapatkan daftar laporan tersimpan.';
-      this.#view.populateBookmarkedStories(message, stories);
+      this.#view.populateBookmarkedStories(listOfStories);
     } catch (error) {
       console.error('initialGalleryAndMap: error:', error);
       this.#view.populateBookmarkedStoriesError(error.message);

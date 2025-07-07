@@ -57,8 +57,8 @@ export async function insertStoryGuest({ description, photo, lat, lon }) {
 }
 
 // Detail story
-export async function storeStory() {
-  const response = await fetch(`${BASE_URL}/stories/:id`, {
+export async function getStoryById(storyId) {
+  const response = await fetch(`${BASE_URL}/stories/${storyId}`, {
     headers: {
       Authorization: 'Bearer ' + getAccessToken()
     }
@@ -68,17 +68,6 @@ export async function storeStory() {
   return {
     ...responseJSON,
     ok: response.ok,
-    "error": false,
-    "message": "Story fetched successfully",
-    "story": {
-        "id": "story-FvU4u0Vp2S3PMsFg",
-        "name": "Dimas",
-        "description": "Lorem Ipsum",
-        "photoUrl": "https://story-api.dicoding.dev/images/stories/photos-1641623658595_dummy-pic.png",
-        "createdAt": "2022-01-08T06:34:18.598Z",
-        "lat": -10.212,
-        "lon": -16.002
-    }
   };
 }
 

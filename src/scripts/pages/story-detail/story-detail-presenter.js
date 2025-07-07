@@ -38,7 +38,7 @@ export default class StoryDetailPresenter {
       const story = await storyMapper(response.data);
       console.log(story); // for debugging purpose, remove after checking it
       
-      this.#view.populateStoryDetailAndInitialMap(response.message, story);
+      this.#view.populateStoryDetailAndInitialMap(response.story);
     } catch (error) {
       console.error('showStoryDetailAndMap: error:', error);
       this.#view.populateStoryDetailError(error.message);
@@ -116,8 +116,8 @@ export default class StoryDetailPresenter {
 
   async saveStory() {
     try {
-      const report = await this.#apiModel.getStoryById(this.#storyId);
-      await this.#dbModel.putStory(report.data);
+      const storyDetail = await this.#apiModel.getStoryById(this.#storyId);
+      await this.#dbModel.putStory(storyDetail.story);
       this.#view.saveToBookmarkSuccessfully('Success to save to bookmark');
     } catch (error) {
       console.error('saveStory: error:', error);

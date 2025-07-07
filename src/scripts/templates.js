@@ -108,6 +108,9 @@ export function generateStoryItemTemplate({
           <i data-feather="edit"></i>
           <p>${name}</p>
         </div>
+        <a class="btn stories-item__read-more" href="#/stories/${id}">
+          Selengkapnya <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </div>
   `;
@@ -178,48 +181,38 @@ export function generateStoryCommentItemTemplate({ photoUrlCommenter, nameCommen
 }
 
 export function generateStoryDetailTemplate({
-  title,
+  name,
   description,
-  damageLevel,
-  evidenceImages,
+  photoUrl,
   latitudeLocation,
   longitudeLocation,
-  storyerName,
   createdAt,
 }) {
   const createdAtFormatted = showFormattedDate(createdAt, 'id-ID');
-  const damageLevelBadge = generateDamageLevelBadge(damageLevel);
-  const imagesHtml = evidenceImages.reduce(
-    (accumulator, evidenceImage) =>
-      accumulator.concat(generateStoryDetailImageTemplate(evidenceImage, title)),
-    '',
-  );
+  const imagesHtml = generateStoryDetailImageTemplate(photoUrl, name);
+
 
   return `
     <div class="Story-detail__header">
-      <h1 id="title" class="Story-detail__title">${title}</h1>
-
       <div class="Story-detail__more-info">
         <div class="Story-detail__more-info__inline">
           <div id="createdat" class="Story-detail__createdat" data-value="${createdAtFormatted}"><i class="fas fa-calendar-alt"></i></div>
         </div>
         <div class="Story-detail__more-info__inline">
-          <div id="location-latitude" class="Story-detail__location__latitude" data-value="${location.latitude}">Latitude:</div>
-          <div id="location-longitude" class="Story-detail__location__longitude" data-value="${location.longitude}">Longitude:</div>
+          <div id="location-latitude" class="Story-detail__location__latitude" data-value="${latitudeLocation}">Latitude:</div>
+          <div id="location-longitude" class="Story-detail__location__longitude" data-value="${longitudeLocation}">Longitude:</div>
         </div>
-        <div id="author" class="Story-detail__author" data-value="${storyerName}">Dilaporkan oleh:</div>
-      </div>
-
-      <div id="damage-level" class="Story-detail__damage-level">
-        ${damageLevelBadge}
+        <div id="author" class="Story-detail__author" data-value="${name}">Dibuat oleh:</div>
       </div>
     </div>
+
 
     <div class="container">
       <div class="Story-detail__images__container">
         <div id="images" class="Story-detail__images">${imagesHtml}</div>
       </div>
     </div>
+
 
     <div class="container">
       <div class="Story-detail__body">
@@ -243,11 +236,6 @@ export function generateStoryDetailTemplate({
           <h2>Aksi</h2>
           <div class="Story-detail__actions__buttons">
             <div id="save-actions-container"></div>
-            <div id="notify-me-actions-container">
-              <button id="Story-detail-notify-me" class="btn btn-transparent">
-                Try Notify Me <i class="far fa-bell"></i>
-              </button>
-            </div>
           </div>
         </div>
       </div>

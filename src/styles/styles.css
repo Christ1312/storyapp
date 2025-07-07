@@ -517,13 +517,13 @@ header {
 /* END OF HOME PAGE */
 
 /* DETAIL PAGE */
-.story-detail__container,
-.story-detail {
+.Story-detail__container,
+.Story-detail {
   position: relative;
   min-height: 80vh;
 }
 
-.story-detail__header {
+.Story-detail__header {
   padding-block: 80px;
   min-height: 600px;
   background-image: url('../public/images/orange-background.png');
@@ -533,12 +533,12 @@ header {
   text-align: center;
 }
 
-.story-detail__title {
+.Story-detail__title {
   font-size: 2.5rem;
   color: #09090b;
 }
 
-.story-detail__more-info {
+.Story-detail__more-info {
   margin: 30px;
   display: grid;
   grid-template-columns: 1fr;
@@ -549,63 +549,63 @@ header {
   color: #5d5d5d;
 }
 
-.story-detail__more-info__inline {
+.Story-detail__more-info__inline {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 24px;
 }
 
-.story-detail__location__place-name,
-.story-detail__location__latitude,
-.story-detail__location__longitude,
-.story-detail__author {
+.Story-detail__location__place-name,
+.Story-detail__location__latitude,
+.Story-detail__location__longitude,
+.Story-detail__author {
   display: inline-flex;
   align-items: center;
   gap: 10px;
 }
 
-.story-detail__createdat::after,
-.story-detail__location__place-name::after,
-.story-detail__location__latitude::after,
-.story-detail__location__longitude::after,
-.story-detail__author::after {
+.Story-detail__createdat::after,
+.Story-detail__location__place-name::after,
+.Story-detail__location__latitude::after,
+.Story-detail__location__longitude::after,
+.Story-detail__author::after {
   content: attr(data-value);
   color: #09090b;
 }
 
-.story-detail__damage-level {
+.Story-detail__damage-level {
   margin: 30px;
   display: flex;
   justify-content: center;
   gap: 32px;
 }
 
-.story-detail__damage-level__minor,
-.story-detail__damage-level__moderate,
-.story-detail__damage-level__severe {
+.Story-detail__damage-level__minor,
+.Story-detail__damage-level__moderate,
+.Story-detail__damage-level__severe {
   padding: 8px 20px;
   border-radius: 9999px;
   font-size: 18px;
   font-weight: 600;
 }
 
-.story-detail__damage-level__minor {
+.Story-detail__damage-level__minor {
   background-color: #2563eb33;
   color: #2563eb;
 }
 
-.story-detail__damage-level__moderate {
+.Story-detail__damage-level__moderate {
   background-color: #d9770633;
   color: #d97706;
 }
 
-.story-detail__damage-level__severe {
+.Story-detail__damage-level__severe {
   background-color: #e11d4833;
   color: #e11d48;
 }
 
-.story-detail__images__container {
+.Story-detail__images__container {
   width: 90%;
   margin-inline: auto;
   position: relative;
@@ -614,11 +614,11 @@ header {
   scale: 1.1;
 }
 
-.story-detail__images {
+.Story-detail__images {
   height: 300px;
 }
 
-.story-detail__image {
+.Story-detail__image {
   width: 100%;
   height: 100%;
   background-color: #5d5d5d;
@@ -651,7 +651,7 @@ header {
 }
 /* Tiny Slider */
 
-.story-detail__body {
+.Story-detail__body {
   margin-block: 40px;
   margin-inline: auto;
   max-width: 800px;
@@ -662,31 +662,31 @@ header {
   gap: 30px;
 }
 
-.story-detail__description__title,
-.story-detail__map__title,
-.story-detail__comments-form__title {
+.Story-detail__description__title,
+.Story-detail__map__title,
+.Story-detail__comments-form__title {
   margin-block-end: 12px;
   font-size: 1.5rem;
 }
 
-.story-detail__map__container,
-.story-detail__map {
+.Story-detail__map__container,
+.Story-detail__map {
   height: 500px;
   position: relative;
 }
 
-.story-detail__map__container {
+.Story-detail__map__container {
   background-color: darkgray;
 }
 
-.story-detail__body__actions__container {
+.Story-detail__body__actions__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
 }
 
-.story-detail__actions__buttons {
+.Story-detail__actions__buttons {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -694,41 +694,41 @@ header {
   gap: 10px;
 }
 
-/* story comments section */
-.story-detail__comments__container {
+/* Story comments section */
+.Story-detail__comments__container {
   max-width: 800px;
   margin-block: 30px;
   margin-inline: auto;
 }
 
-/* story comments form */
-.story-detail__comments-form__container {
+/* Story comments form */
+.Story-detail__comments-form__container {
   margin-block: 20px 40px;
 }
 
-.story-detail__comments-form__form textarea {
+.Story-detail__comments-form__form textarea {
   min-height: 150px;
 }
 
-.story-detail__comments-form__form button {
+.Story-detail__comments-form__form button {
   margin-block-start: 10px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
 }
 
-.story-detail__comments-form__loader {
+.Story-detail__comments-form__loader {
   animation: rotation 1s linear infinite;
 }
 
-/* story comments list */
-.story-detail__comments-list__container,
-.story-detail__comments-list {
+/* Story comments list */
+.Story-detail__comments-list__container,
+.Story-detail__comments-list {
   min-height: 150px;
   position: relative;
 }
 
-.story-detail__comments-list {
+.Story-detail__comments-list {
   margin-block: 30px;
 
   display: grid;
@@ -736,16 +736,16 @@ header {
   gap: 32px;
 }
 
-.story-detail__comments-list__empty {
+.Story-detail__comments-list__empty {
   text-align: center;
 }
 
-.story-detail__comment-item {
+.Story-detail__comment-item {
   display: flex;
   gap: 20px;
 }
 
-.story-detail__comment-item__photo {
+.Story-detail__comment-item__photo {
   aspect-ratio: 1 / 1;
   width: 50px;
   height: 50px;
@@ -754,11 +754,11 @@ header {
   align-self: start;
 }
 
-.story-detail__comment-item__body {
+.Story-detail__comment-item__body {
   flex-grow: 1;
 }
 
-.story-detail__comment-item__body__more-info {
+.Story-detail__comment-item__body__more-info {
   margin-block-end: 8px;
   display: flex;
   gap: 12px;
@@ -766,12 +766,12 @@ header {
   color: #555;
 }
 
-.story-detail__comment-item__body__author {
+.Story-detail__comment-item__body__author {
   font-weight: 600;
   color: #09090b;
 }
 
-.story-detail__comment-item__body__text {
+.Story-detail__comment-item__body__text {
   color: #5d5d5d;
 }
 /* story comments section */
