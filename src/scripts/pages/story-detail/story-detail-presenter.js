@@ -34,10 +34,7 @@ export default class StoryDetailPresenter {
         this.#view.populateStoryDetailError(response.message);
         return;
       }
-
-      const story = await storyMapper(response.data);
-      console.log(story); // for debugging purpose, remove after checking it
-      
+            
       this.#view.populateStoryDetailAndInitialMap(response.story);
     } catch (error) {
       console.error('showStoryDetailAndMap: error:', error);

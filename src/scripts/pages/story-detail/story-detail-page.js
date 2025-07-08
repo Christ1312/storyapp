@@ -99,7 +99,7 @@ export default class StoryDetailPage {
       generateSaveStoryButtonTemplate();
 
     document.getElementById('Story-detail-save').addEventListener('click', async () => {
-      await this.#presenter.saveReport();
+      await this.#presenter.saveStory();
       await this.#presenter.showSaveButton();
     });
   }
